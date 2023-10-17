@@ -1,12 +1,14 @@
 #!/usr/local/bin/bash -e
 
-grep 'Failed password for invalid' /var/log/authlog| awk '{ print $1, $2, $13 }'|sort|uniq -c|sort -n | while read count month day ip; do
+authlog=/var/log/backup/authlog*
+
+grep 'Failed password for invalid' $authlog| awk '{ print $1, $2, $13 }'|sort|uniq -c|sort -n | while read count month day ip; do
 	if [ "$count" -ge 7 ]; then
 		echo "$ip"
 	fi
 done > etc/pf.blocked.invalid
 
-grep 'Failed password for ' /var/log/authlog| grep -v 'invalid user'|awk '{ print $1, $2, $11 }'|sort|uniq -c|sort -n | while read count month day ip; do
+grep 'Failed password for ' $authlog| grep -v 'invalid user'|awk '{ print $1, $2, $11 }'|sort|uniq -c|sort -n | while read count month day ip; do
     if [ "$count" -ge 7 ]; then
         echo "$ip"
     fi
