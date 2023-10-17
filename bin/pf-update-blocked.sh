@@ -1,6 +1,6 @@
 #!/usr/local/bin/bash -e
 
-authlog=/var/log/backup/authlog*
+authlog=/var/log/authlog
 
 grep 'Failed password for invalid' $authlog| awk '{ print $1, $2, $13 }'|sort|uniq -c|sort -n | while read count month day ip; do
 	if [ "$count" -ge 7 ]; then
