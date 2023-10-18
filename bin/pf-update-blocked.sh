@@ -22,6 +22,6 @@ mv etc/_pf.blocked etc/pf.blocked
 
 rm etc/pf.blocked.*
 
-git commit -m updated etc/pf.blocked >/dev/null || true
+git commit -m updated etc/pf.blocked >/dev/null 2>/dev/null || true
 
-git push >/dev/null || true
+git push >/dev/null 2>/dev/null || true
